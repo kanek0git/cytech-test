@@ -1,0 +1,15 @@
+:root {
+    --main-font-color: #606060;
+    --success-message-color: #3dda4a;
+    --error-message-color: #ED1C3C;
+    --required-mark-color: #FAAADF;
+    --required-color: #fff;
+    --table-border: .5px solid #bbb;
+    --table-header-bg-color: #EDF8FF;
+    --select-box-init-color: #999;
+    --main-btn-bg-color: #C4E5FF;
+    --sub-btn-bg-color: #eee;
+    --delete-btn-bg-color: #FFE6EE;
+    --hover-btn-opacity: .75;
+
+}

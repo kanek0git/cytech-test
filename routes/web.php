@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ProductController@index')->name('index');
+Route::post('search', 'ProductController@search')->name('search');
+Route::get('new', 'ProductController@new')->name('new');
+Route::post('new', 'ProductController@regist')->name('regist');
+Route::get('destroy/{id}', 'ProductController@destroy')->name('destroy');
+Route::get('show/{id}', 'ProductController@show')->name('show');
+Route::get('edit/{id}', 'ProductController@edit')->name('edit');
+Route::post('edit/{id}', 'ProductController@update')->name('update');
+
+Auth::routes();

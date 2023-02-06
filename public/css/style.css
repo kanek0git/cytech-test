@@ -1,0 +1,254 @@
+/* ---------------------------------------------------
+ * 共通部品
+--------------------------------------------------- */
+body {
+    color: var(--main-font-color);
+}
+a:hover {
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
+.ps-btn {
+    display: inline-block;
+    padding: .25em .8em;
+    border: .5px solid #446d88;
+    border-radius: .2em;
+    box-shadow: 0 .05em .25em gray;
+    color: var(--main-font-color);
+    font-size: 1.1em;
+    line-height: 1.5;
+    text-decoration: none;
+    text-align: center;
+}
+.ps-btn:hover {
+    color: var(--main-font-color);
+    opacity: var(--hover-btn-opacity);
+}
+.content-area {
+    background-color: #fff;
+    border: .5px solid #ccc;
+    border-radius: 3px;
+}
+.content-title {
+    background-color: #eee;
+    padding: 3px 15px;
+}
+.content-title p {
+    margin: 0;
+    font-size: 14pt;
+}
+.content-main table {
+    width: 100%;
+}
+.content-main th, .content-main td {
+    padding: 5px 0;
+}
+.content-main th {
+    font-weight: normal;
+    padding-right: 10px;
+    padding-left: 15px;
+}
+.content-main form{
+    padding: 5px 15px;
+}
+.content-main input[type="text"],
+.content-main select,
+.content-main textarea {
+    width: 100%;
+    padding: 3px 5px;
+}
+.content-main select {
+    color: var(--select-box-init-color);
+}
+
+/* ---------------------------------------------------
+ * 商品情報一覧画面
+--------------------------------------------------- */
+/* 検索フォーム */
+.search-form {
+    width: 80%;
+    margin: 20px 0 30px 0;
+}
+.search-content form {
+    display: flex;
+}
+.search-content td {
+    border-right: 1px solid #ddd;
+    padding-right: 30px;
+}
+.search-btn {
+    background-color: var(--main-btn-bg-color);
+    margin: auto 10px auto 30px;
+    height: 100%;
+    vertical-align: baseline;
+}
+
+/* 商品一覧 */
+.product-list {
+    width: 100%;
+    margin: 0 auto;
+}
+.title-with-btn {
+    display: flex;
+    justify-content: space-between;
+}
+.product-contents {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr ;
+    gap: 20px;
+    padding: 10px;
+}
+.product {
+    border: .5px solid #aaa;
+    box-shadow: 0 .05em .25em gray;
+    border-radius: 5px;
+    width: 100%;
+    padding-bottom: 10px;
+}
+.product img {
+    width: 100%;
+    /* height: 172px; */
+    height: 11.1vw;
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+.product-info {
+    padding: 0 5px;
+}
+.product table {
+    width: 100%;
+}
+.product table, .product th, .product td {
+    border: var(--table-border);
+}
+.product th {
+    width: 40%;
+    background-color: var(--table-header-bg-color);
+    padding-left: 5px;
+}
+.product td {
+    padding-left: 5px;
+}
+.btn-area {
+    margin-top: 7px;
+    display: flex;
+    justify-content: space-around;
+}
+.new-btn, .view-btn {
+    background-color: var(--main-btn-bg-color);
+}
+.view-btn, .delete-btn {
+    width: 40%;
+}
+.delete-btn {
+    background-color: var(--delete-btn-bg-color);
+}
+
+/* ---------------------------------------------------
+ * 商品新規登録画面
+--------------------------------------------------- */
+.regist-form {
+    width: 70%;
+    margin: 0 auto;
+}
+.msg {
+    margin-top: 5px;
+}
+.success {
+    color: var(--success-message-color);
+}
+.error {
+    color: var(--error-message-color);
+}
+.required {
+    background-color: var(--required-mark-color);
+    color: var(--required-color);
+    font-size: .8em;
+    font-weight: bold;
+    padding: 1px 7px;
+    border-radius: 6px;
+    float: right;
+}
+.regist-form table, .regist-form th, .regist-form td {
+    border: var(--table-border);
+}
+.regist-form th {
+    background-color: var(--table-header-bg-color);
+}
+.td-price {
+    display: flex;
+}
+.price-unit {
+    padding: 5px 30px 5px 15px;
+    vertical-align: middle;
+}
+.regist-form .btn-area {
+    margin: 20px 0 15px 0;
+}
+.regist-btn, .return-btn {
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+}
+.regist-btn {
+    background-color: var(--main-btn-bg-color);
+}
+.return-btn {
+    background-color: var(--sub-btn-bg-color);
+}
+
+/* ---------------------------------------------------
+ * 商品情報詳細画面, 商品情報編集画面
+--------------------------------------------------- */
+/* 詳細画面と編集画面の共通スタイル */
+.show-form, .edit-form {
+    width: 70%;
+    margin: 0 auto;
+}
+.edit-btn, .cancel-btn, .update-btn {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+}
+.edit-btn, .update-btn {
+    background-color: var(--main-btn-bg-color);
+    margin-right: 20px;
+}
+.cancel-btn {
+    background-color: var(--sub-btn-bg-color);
+}
+.product-img {
+    width: 100%;
+}
+.show-form table, .show-form th, .show-form td,
+.edit-form table, .edit-form th, .edit-form td {
+    border: var(--table-border);
+}
+.center-th {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+.show-form th, .edit-form th {
+    background-color: var(--table-header-bg-color);
+}
+
+/* 詳細画面用スタイル */
+.show-form th {
+    width: 12%;
+}
+.show-form td {
+    padding-left: 10px;
+}
+
+/* 編集画面用スタイル */
+.edit-form th {
+    width: 25%;
+}
+.edit-form td {
+    padding: 0 10px;
+}
+.edit-form select {
+    color: var(--main-font-color);
+}
