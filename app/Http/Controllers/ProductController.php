@@ -63,11 +63,11 @@ class ProductController extends Controller
     */
     public function regist(ProductRequest $request) {
         // 画像をストレージに保存
-        $img_name = $this->saveImgFile($request);
+        $img_path = $this->saveImgFile($request);
 
         // 製品情報をDB登録
         $product = new Product();
-        $product->InsertProduct($request, 'storage/img/'.$img_name);
+        $product->InsertProduct($request, $img_path);
         
         // メーカー情報を全件取得
         $companies = Company::get();
@@ -115,10 +115,10 @@ class ProductController extends Controller
     */
     public function update(ProductRequest $request, $id) {
         // 画像をストレージに保存
-        $img_name = $this->saveImgFile($request);
+        $img_path = $this->saveImgFile($request);
 
         $product = Product::find($id);
-        $product->updateProduct($request, 'storage/img/'.$img_name);
+        $product->updateProduct($request, $img_path);
         
         // メーカー情報を全件取得
         $companies = Company::get();
@@ -142,7 +142,11 @@ class ProductController extends Controller
     
             // 取得したファイル名で保存
             $request->file('img_file')->storeAs('public/img', $img_name);
+
+            // ファイル格納場所のパスを返却
+            return 'storage/img/'.$img_name;
         }
-        return $img_name;
+        // デフォルト画像格納場所のパスを返却
+        return 'img/'.$img_name;
     }
 }
