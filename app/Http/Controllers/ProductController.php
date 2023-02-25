@@ -6,6 +6,9 @@ use App\Models\Company;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\MessageBag;
+use Illuminate\Support\ViewErrorBag;
 
 class ProductController extends Controller
 {
@@ -65,14 +68,34 @@ class ProductController extends Controller
         // 画像をストレージに保存
         $img_path = $this->saveImgFile($request);
 
-        // 製品情報をDB登録
-        $product = new Product();
-        $product->InsertProduct($request, $img_path);
-        
         // メーカー情報を全件取得
         $companies = Company::get();
+
+        // トランザクション開始
+        DB::beginTransaction();
+        try {
+            // 製品情報をDB登録
+            $product = new Product();
+            $product->InsertProduct($request, $img_path);
+            DB::commit();
+
+            // 正常終了メッセージ格納
+            $request->session()->flash('msg', config('const.success_msg.regist'));
+        } catch (\Exception $e) {
+            DB::rollback();
+            info($e->getMessage());
+
+            // 異常終了メッセージ格納
+            $error_msg = new MessageBag();
+            $error_msg->add('', config('const.error_msg.regist'));
+            $errors = new ViewErrorBag();
+            $errors->put('default', $error_msg);
+            $request->session()->flash('errors', $errors);
+
+            return back();
+        }
+        
         return view('item.new', [
-            'msg' => '商品情報が正常に登録されました。',
             'companies' => $companies
         ]);
     }
@@ -89,8 +112,17 @@ class ProductController extends Controller
     * 商品削除機能
     */
     public function destroy($id) {
-        $product = Product::find($id);
-        $product->delete();
+        // トランザクション開始
+        DB::beginTransaction();
+        try {
+            $product = Product::find($id);
+            $product->delete();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            info($e->getMessage());
+            return back();
+        }
         
         return redirect()->route('index');
     }
@@ -117,14 +149,33 @@ class ProductController extends Controller
         // 画像をストレージに保存
         $img_path = $this->saveImgFile($request);
 
-        $product = Product::find($id);
-        $product->updateProduct($request, $img_path);
-        
         // メーカー情報を全件取得
         $companies = Company::get();
+
+        // トランザクション開始
+        DB::beginTransaction();
+        try {
+            $product = Product::find($id);
+            $product->updateProduct($request, $img_path);
+            DB::commit();
+
+            // 正常終了メッセージ格納
+            $request->session()->flash('msg', config('const.success_msg.update'));
+        } catch (\Exception $e) {
+            DB::rollback();
+            info($e->getMessage());
+
+            // 異常終了メッセージ格納
+            $error_msg = new MessageBag();
+            $error_msg->add('', config('const.error_msg.update'));
+            $errors = new ViewErrorBag();
+            $errors->put('default', $error_msg);
+            $request->session()->flash('errors', $errors);
+
+            return back();
+        }
         
         return view('item.edit', [
-            'msg' => '商品情報が正常に更新されました。',
             'product' => $product,
             'companies' => $companies
         ]);
@@ -133,7 +184,7 @@ class ProductController extends Controller
     // 画像保存処理
     private function saveImgFile($request) {
         // 画像ファイル名にデフォルト値設定
-        $img_name = 'default_img.svg';
+        $img_name = config('const.img.default_img_name');
     
         $img_file = $request->file('img_file');
         if ($img_file) {
@@ -141,12 +192,12 @@ class ProductController extends Controller
             $img_name = $img_file->getClientOriginalName();
     
             // 取得したファイル名で保存
-            $request->file('img_file')->storeAs('public/img', $img_name);
+            $request->file('img_file')->storeAs(config('const.img.path_public'), $img_name);
 
             // ファイル格納場所のパスを返却
-            return 'storage/img/'.$img_name;
+            return config('const.img.path_storage').$img_name;
         }
         // デフォルト画像格納場所のパスを返却
-        return 'img/'.$img_name;
+        return config('const.img.path_default').$img_name;
     }
 }

@@ -38,12 +38,12 @@ class ProductRequest extends FormRequest
 
     public function messages() {
         return [
-            'product_name.required' => '商品名は必ず入力してください。',
-            'company_id.required' => 'メーカーは必ず選択してください。',
-            'price.required' => '価格は必ず入力してください。',
-            'price.numeric' => '価格は数値で入力してください。',
-            'stock.required' => '在庫数は必ず入力してください。',
-            'stock.numeric' => '在庫数は数値で入力してください。'
+            'product_name.required' => config('const.error_msg.product_name_required'),
+            'company_id.required' => config('const.error_msg.company_id_required'),
+            'price.required' => config('const.error_msg.price_required'),
+            'price.numeric' => config('const.error_msg.price_numeric'),
+            'stock.required' => config('const.error_msg.stock_required'),
+            'stock.numeric' => config('const.error_msg.stock_numeric'),
         ];
     }
 }

@@ -11,8 +11,8 @@
         <div class="msg">
             <ul>
                 <div class="success">
-                    @if ($msg)
-                    <li>SUCCESS: {{ $msg }}</li>
+                    @if (session('msg'))
+                    <li>SUCCESS: {{ session('msg') }}</li>
                     @endif
                 </div>
                 <div class="error">
