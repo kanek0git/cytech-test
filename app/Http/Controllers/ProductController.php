@@ -25,11 +25,12 @@ class ProductController extends Controller
         $companies = Company::get();
 
         // 製品情報を全件取得
-        $products = Product::get();
+        // $products = Product::get();
 
         return view('item.index', [
             'companies' => $companies,
-            'products' => $products
+            // 'products' => $products
+            'products' => []
         ]);
     }
 
@@ -40,11 +41,7 @@ class ProductController extends Controller
         $product = new Product();
         $products = $product->searchProducts($request);
         
-        // メーカー情報を全件取得
-        $companies = Company::get();
-
-        return view('item.index', [
-            'companies' => $companies,
+        return view('item.products', [
             'products' => $products
         ]);
     }
@@ -200,4 +197,5 @@ class ProductController extends Controller
         // デフォルト画像格納場所のパスを返却
         return config('const.img.path_default').$img_name;
     }
+
 }

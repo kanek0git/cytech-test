@@ -2,14 +2,25 @@
     --main-font-color: #606060;
     --success-message-color: #3dda4a;
     --error-message-color: #ED1C3C;
+    --content-title-bg-color: #eee;
+    --content-area-bg-color: #fff;
+    --content-area-border-color: #ccc;
+    --nav-list-border-color: #ddd;
+    --nav-list-bg-color: rgba(255, 255, 255, .75);
+    --nav-content-color: #fff;
+    --nav-content-bg-color: rgba(0, 0, 0, .75);
+    --sort-hover-bg-color: rgba(0, 0, 0, .7);
+    --direction-non-active-color: #888;
+    --direction-active-color: aqua;
     --required-mark-color: #FAAADF;
     --required-color: #fff;
     --table-border: .5px solid #bbb;
     --table-header-bg-color: #EDF8FF;
     --select-box-init-color: #999;
+    --product-border-color: #aaa;
     --main-btn-bg-color: #C4E5FF;
     --sub-btn-bg-color: #eee;
+    --btn-border-color: #446d88;
     --delete-btn-bg-color: #FFE6EE;
     --hover-btn-opacity: .75;
-
 }

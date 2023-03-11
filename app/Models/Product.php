@@ -30,6 +30,11 @@ class Product extends Model
         return $this->belongsTo('App\Models\Company');
     }
 
+    // 外部キー
+    public function sales() {
+        return $this->hasMany('App\Models\Sale');
+    }
+
     // productsテーブルの全データ取得
     public function findAllProducts() {
         return Product::all();
@@ -39,23 +44,45 @@ class Product extends Model
     public function searchProducts($request) {
         $query = $this->query();
         // 商品名の指定がある場合
-        if ($request->product_name) {
+        if ($request->input('product_name')) {
             // 全角スペースを半角スペースに変換
-            $spaceConversion = mb_convert_kana($request->product_name, 's');
-
+            $spaceConversion = mb_convert_kana($request->input('product_name'), 's');
+            
             // 単語を半角スペースで区切り、配列化
             $searchWordsArr = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
-
+            
             foreach ($searchWordsArr as $searchWord) {
                 // 単語ごとに部分一致検索
                 $query->where('product_name', 'like', '%'.$searchWord.'%');
             }
-
+            
         }
         // メーカー名の指定がある場合
-        if ($request->company_id) {
-            $query->where('company_id', $request->company_id);
+        if ($request->input('company_id')) {
+            $query->where('company_id', $request->input('company_id'));
         }
+        // 価格（下限）の指定がある場合
+        if ($request->input('price_lower')) {
+            $query->where('price', '>=', $request->input('price_lower'));
+        }
+        // 価格（上限）の指定がある場合
+        if ($request->input('price_upper')) {
+            $query->where('price', '<=', $request->input('price_upper'));
+        }
+        // 在庫数（下限）の指定がある場合
+        if ($request->input('stock_lower')) {
+            $query->where('stock', '>=', $request->input('stock_lower'));
+        }
+        // 在庫数（上限）の指定がある場合
+        if ($request->input('stock_upper')) {
+            $query->where('stock', '<=', $request->input('stock_upper'));
+        }
+
+        // 並び替え処理
+        if ($request->input('sort_key') && $request->input('derection')) {
+            $query->orderBy($request->input('sort_key'), $request->input('derection'));
+        }
+
         return $query->get();
     }
 

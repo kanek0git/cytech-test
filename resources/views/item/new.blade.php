@@ -28,10 +28,10 @@
                 <tr><th>商品名<span class="required">必須</span></th><td><input type="text" name="product_name" value="{{ old('product_name') }}" placeholder="商品名を入力"></td></tr>
                 <tr><th>メーカー<span class="required">必須</span></th>
                     <td>
-                        <select name="company_id" onchange="changeSelectColor(this)">
-                            <option value="" selected disabled>メーカー名を選択</option>
+                        <select class="select-form" name="company_id" onchange="changeSelectColor()">
+                            <option class="non-selectable" value="" selected disabled>メーカー名を選択</option>
                             @foreach ($companies as $company)
-                            <option value="{{ $company->id }}">{{ $company->company_name }}</option>
+                            <option class="selectable" value="{{ $company->id }}">{{ $company->company_name }}</option>
                             @endforeach
                         </select>
                     </td>

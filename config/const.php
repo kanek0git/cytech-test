@@ -20,4 +20,10 @@ return [
         'path_storage' => 'storage/img/',
         'path_default' => 'img/',
     ],
+    'purchase_msg' => [
+        'not_exist_product' => 'お求めの商品は存在しません。',
+        'not_exist_stock' => 'お求めの商品の在庫がありません。',
+        'success' => '購入処理が正常に完了しました。',
+        'error' => '購入処理に失敗しました。',
+    ]
 ];

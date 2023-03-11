@@ -20,7 +20,10 @@
         </table>
         <div class="btn-area">
             <a class="ps-btn view-btn" href="{{ route('show', ['id' => $product->id]) }}">詳細表示</a>
-            <a class="ps-btn delete-btn" href="{{ route('destroy', ['id' => $product->id]) }}" onclick='return showDeleteConfirm()'>削除</a>
+            <button class="ps-btn delete-btn" onclick='(function() {
+                let id = {{ $product->id }};
+                showDeleteConfirm(id);
+            })();'>削除</button>
         </div>
     </div>
 </div>

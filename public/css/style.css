@@ -13,7 +13,7 @@ li {
 .ps-btn {
     display: inline-block;
     padding: .25em .8em;
-    border: .5px solid #446d88;
+    border: .5px solid var(--btn-border-color);
     border-radius: .2em;
     box-shadow: 0 .05em .25em gray;
     color: var(--main-font-color);
@@ -27,13 +27,14 @@ li {
     opacity: var(--hover-btn-opacity);
 }
 .content-area {
-    background-color: #fff;
-    border: .5px solid #ccc;
+    background-color: var(--content-area-bg-color);
+    border: .5px solid var(--content-area-border-color);
     border-radius: 3px;
 }
 .content-title {
-    background-color: #eee;
+    background-color: var(--content-title-bg-color);
     padding: 3px 15px;
+    position: relative;
 }
 .content-title p {
     margin: 0;
@@ -66,26 +67,33 @@ li {
 /* ---------------------------------------------------
  * 商品情報一覧画面
 --------------------------------------------------- */
-/* 検索フォーム */
-.search-form {
-    width: 80%;
-    margin: 20px 0 30px 0;
-}
-.search-content form {
+/* 商品一覧 */
+.header-nav {
     display: flex;
 }
-.search-content td {
-    border-right: 1px solid #ddd;
-    padding-right: 30px;
-}
-.search-btn {
-    background-color: var(--main-btn-bg-color);
-    margin: auto 10px auto 30px;
+.nav-list {
     height: 100%;
-    vertical-align: baseline;
+    padding: 5px 20px;
+    text-align: center;
+    border-left: 1px solid var(--nav-list-border-color);
+    background-color: var(--nav-list-bg-color);
 }
-
-/* 商品一覧 */
+.search {
+    border-right: 1px solid var(--nav-list-border-color);
+}
+.search, .sort {
+    cursor: pointer;
+}
+.sort::after, .search::after {
+    margin-left: 5px;
+    content: '▼';
+}
+.search:hover, .sort:hover {
+    opacity: .65;
+}
+.sort.is-active, .search.is-active {
+    opacity: .65;
+}
 .product-list {
     width: 100%;
     margin: 0 auto;
@@ -96,13 +104,111 @@ li {
 }
 .product-contents {
     width: 100%;
+    padding: 10px;
+}
+
+/* 並べ替え機能 */
+#sort-nav-contents {
+    display: none;
+    width: 35%;
+    color: var(--nav-content-color);
+    background-color: var(--nav-content-bg-color);
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 10;
+}
+#sort-nav-contents table {
+    width: 100%;
+    height: 250px;
+}
+#sort-nav-contents th {
+    width: 60%;
+    text-align: center;
+}
+#sort-nav-contents th:hover {
+    background-color: var(--sort-hover-bg-color);
+}
+.direction-column {
+    color: var(--direction-non-active-color);
+}
+.direction-column.is-active {
+    color: var(--direction-active-color);
+}
+.direction-column.asc::before {
+    content: '▲';
+    margin-right: 5px;
+}
+.direction-column.desc::before {
+    content: '▼';
+    margin-right: 5px;
+}
+
+/* 絞り込み機能 */
+#search-nav-contents {
+    display: none;
+    width: 35%;
+    color: var(--nav-content-color);
+    background-color: var(--nav-content-bg-color);
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 10;
+}
+.nav-table {
+    width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+#search-nav-contents table {
+    width: 100%;
+}
+#search-nav-contents th {
+    width: 25%;
+    white-space: nowrap;
+}
+#search-form-product-name, #search-form-company {
+    width: 100%;
+    margin: 8px 0;
+    padding: 3px 5px;
+}
+#search-form-price-lower, #search-form-price-upper, #search-form-stock-lower, #search-form-stock-upper {
+    width: 35%;
+    margin: 8px 0;
+    padding: 3px 5px;
+}
+.non-selectable {
+    color: var(--select-box-init-color);
+}
+.selectable {
+    color: var(--main-font-color);
+}
+.search-btn-area {
+    text-align: center;
+}
+.search-btn {
+    background-color: var(--main-btn-bg-color);
+    width: 50%;
+    margin: 15px auto;
+    text-align: center;
+    white-space: nowrap;
+}
+.reset-btn {
+    width: 30%;
+    background-color: var(--sub-btn-bg-color);
+    margin: 15px 0 15px 30px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* コンテンツ領域 */
+#contents-list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr ;
     gap: 20px;
-    padding: 10px;
 }
 .product {
-    border: .5px solid #aaa;
+    border: .5px solid var(--product-border-color);
     box-shadow: 0 .05em .25em gray;
     border-radius: 5px;
     width: 100%;
@@ -110,7 +216,6 @@ li {
 }
 .product img {
     width: 100%;
-    /* height: 172px; */
     height: 11.1vw;
     object-fit: contain;
     margin-bottom: 5px;
@@ -136,6 +241,9 @@ li {
     margin-top: 7px;
     display: flex;
     justify-content: space-around;
+}
+.new-btn {
+    margin-left: 10px;
 }
 .new-btn, .view-btn {
     background-color: var(--main-btn-bg-color);

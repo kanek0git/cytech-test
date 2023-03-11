@@ -1,11 +1,9 @@
-function changeSelectColor(el) {
-    if (el.value) {
-        el.style.color = '#606060';
-    } else {
-        el.style.color = '#999';
-    }
-}
+/* 共通JavaScript */
 
-function showDeleteConfirm() {
-    return confirm('この商品情報を削除しますか？');
+function changeSelectColor() {
+    if ($('.select-form').val()) {
+        $('.select-form').css('color', '#606060');
+    } else {
+        $('.select-form').css('color', '#999');
+    }
 }
